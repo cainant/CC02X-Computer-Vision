@@ -2,10 +2,12 @@ import cv2
 from matplotlib import pyplot as plt
 import imutils
 
+figsize=(12.5, 5)
+
 def save_grayscale_image_hist(image: cv2.typing.MatLike, image_name: str, hist_title: str):
     hist = cv2.calcHist([image], [0], None, [256], [0, 256])
 
-    _, axs = plt.subplots(1, 2, figsize=(10, 5))
+    _, axs = plt.subplots(1, 2, figsize=figsize)
 
     axs[0].axis("off")
     axs[0].imshow(image, cmap='gray')
@@ -14,6 +16,7 @@ def save_grayscale_image_hist(image: cv2.typing.MatLike, image_name: str, hist_t
     axs[1].set_xlabel("intensidade do pixel")
     axs[1].set_ylabel("n° de pixels")
     axs[1].plot(hist)
+    axs[1].set_ylim(bottom=0)
     plt.xlim([0, 256])
 
     plt.savefig(f'out/histograms/{image_name}/{hist_title}.png')
@@ -36,7 +39,7 @@ def save_colored_image_hist(image: cv2.typing.MatLike, image_name: str, hist_tit
     chans = cv2.split(image)
     colors = ("b", "g", "r")
 
-    _, axs = plt.subplots(1, 2, figsize=(10, 5))
+    _, axs = plt.subplots(1, 2, figsize=figsize)
 
     axs[0].axis("off")
     axs[0].imshow(imutils.opencv2matplotlib(image))
@@ -49,6 +52,7 @@ def save_colored_image_hist(image: cv2.typing.MatLike, image_name: str, hist_tit
         hist = cv2.calcHist([chan], [0], None, [256], [0, 256])
 
         axs[1].plot(hist, color=color)
+        axs[1].set_ylim(bottom=0)
         plt.xlim([0, 256])
 
     plt.savefig(f'out/histograms/{image_name}/{hist_title}.png')
