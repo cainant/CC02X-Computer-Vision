@@ -2,7 +2,7 @@ import cv2
 from matplotlib import pyplot as plt
 import imutils
 
-figsize=(12.5, 5)
+figsize=(15, 5)
 
 def save_grayscale_image_hist(image: cv2.typing.MatLike, image_name: str, hist_title: str):
     hist = cv2.calcHist([image], [0], None, [256], [0, 256])
@@ -19,7 +19,7 @@ def save_grayscale_image_hist(image: cv2.typing.MatLike, image_name: str, hist_t
     axs[1].set_ylim(bottom=0)
     plt.xlim([0, 256])
 
-    plt.savefig(f'out/histograms/{image_name}/{hist_title}.png')
+    plt.savefig(f'out/histograms/{image_name}/{hist_title}.png',bbox_inches='tight')
     plt.close()
 
 def generate_grayscale_hist(image_name: str):
@@ -55,7 +55,7 @@ def save_colored_image_hist(image: cv2.typing.MatLike, image_name: str, hist_tit
         axs[1].set_ylim(bottom=0)
         plt.xlim([0, 256])
 
-    plt.savefig(f'out/histograms/{image_name}/{hist_title}.png')
+    plt.savefig(f'out/histograms/{image_name}/{hist_title}.png',bbox_inches='tight')
     plt.close()
 
 def generate_colored_hist(image_name: str):
